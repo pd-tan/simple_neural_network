@@ -1,10 +1,10 @@
 import numpy
 import numpy as np
 
-from layers.layers_abc import LayerABC
+from layers.TrainableLayersABC import TrainableLayersABC
 
 
-class FullConnectedLayer1D(LayerABC):
+class FullConnectedLayer1D(TrainableLayersABC):
     def __init__(self, input_length=16, output_length=16, init_method=None):
         self._input_length = input_length
         self._output_length = output_length
@@ -24,7 +24,9 @@ class FullConnectedLayer1D(LayerABC):
         else:
             pass
 
-
+    def update_weight(self):
+        #TODO implement update weights
+        pass
 
     def has_weights(self):
         return True
