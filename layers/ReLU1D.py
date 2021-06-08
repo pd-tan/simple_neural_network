@@ -1,12 +1,17 @@
 from layers.LayersABC import LayerABC
-
+import numpy as np
 
 class ReLU1D(LayerABC):
-    def __init__(self, input_dim):
-        self._input_dim = input_dim
+    def __init__(self):
+
 
     def forward(self, input):
         return input * (input > 1)
+
+    def back(self, input):
+        # TODO add backwards for relu
+        pass
+
 
 
 if __name__ == '__main__':
