@@ -10,7 +10,7 @@ class ReLU1D(OneDimLayer):
 
     def forward(self, input):
         super().forward(input)
-        return input * (input > 1)
+        return input * (input > 0)
 
     def back(self, input):
         # TODO add backwards for relu
