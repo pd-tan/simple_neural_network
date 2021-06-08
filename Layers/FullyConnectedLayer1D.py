@@ -5,7 +5,7 @@ from Layers.TrainableLayersABC import TrainableLayersABC
 
 
 class FullyConnectedLayer1D(TrainableLayersABC):
-    def __init__(self, input_length=16, output_length=16, init_method=None):
+    def __init__(self, input_length, output_length, init_method=None):
         self._input_length = input_length
         self._output_length = output_length
         self.init_weights(init_method)
