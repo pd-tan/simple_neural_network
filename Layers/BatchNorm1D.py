@@ -4,6 +4,7 @@ from Layers.LayersABC import LayerABC
 
 
 class BatchNorm1D(LayerABC):
+
     def __init__(self, input_dim, gamma=1, beta=0, eps=10 ** -5):
         self._input_dim = input_dim
         self._gamma = gamma

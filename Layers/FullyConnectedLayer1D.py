@@ -11,7 +11,7 @@ class FullyConnectedLayer1D(TrainableLayersABC):
         self.init_weights(init_method)
 
     def forward(self, input):
-        return np.matmul(self._weights, input) +self._biases
+        return np.matmul(self._weights, input) + self._biases
 
     def back(self):
         # TODO implement backwards
