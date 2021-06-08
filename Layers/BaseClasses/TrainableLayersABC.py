@@ -10,3 +10,4 @@ class TrainableLayersABC(LayerABC):
     @abstractmethod
     def update_weight(self):
         pass
+
