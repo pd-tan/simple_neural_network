@@ -11,6 +11,8 @@ class FullyConnectedLayer1D(TrainableLayersABC):
         self.init_weights(init_method)
 
     def forward(self, input):
+        assert(len(input.shape) ==2),"1D Layer requires a 2D array of input_length x 1. The input received is NOT 2D"
+        assert(input.shape[1] == 1), "1D Layer requires a 2D array of input_length x 1. The input received is NOT 2D"
         return np.matmul(self._weights, input) + self._biases
 
     def back(self):
@@ -34,5 +36,5 @@ class FullyConnectedLayer1D(TrainableLayersABC):
 
 if __name__ == '__main__':
     print("Simple test of FC1D Layer");
-    test_layer = FullyConnectedLayer1D();
+    test_layer = FullyConnectedLayer1D(16,16);
     print(test_layer.forward(np.random.rand(16,1)))
