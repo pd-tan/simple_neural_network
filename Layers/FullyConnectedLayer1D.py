@@ -1,12 +1,11 @@
-import numpy
 import numpy as np
 
-from Layers.TrainableLayersABC import TrainableLayersABC
+from Layers.BaseClasses.TrainableLayersABC import TrainableLayersABC
+from Layers.BaseClasses.OneDimLayer import OneDimLayer
 
-
-class FullyConnectedLayer1D(TrainableLayersABC):
+class FullyConnectedLayer1D(OneDimLayer,TrainableLayersABC):
     def __init__(self, input_length=16, output_length=16, init_method=None):
-        self._input_length = input_length
+        OneDimLayer.__init__(self,input_length=input_length)
         self._output_length = output_length
         self.init_weights(init_method)
 

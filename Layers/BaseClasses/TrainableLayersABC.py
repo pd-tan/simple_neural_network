@@ -1,5 +1,5 @@
-from Layers.LayersABC import LayerABC
-from abc import ABCMeta, abstractmethod
+from Layers.BaseClasses.LayersABC import LayerABC
+from abc import abstractmethod
 class TrainableLayersABC(LayerABC):
     def __init__(self):
         pass

@@ -1,9 +1,11 @@
-from Layers.LayersABC import LayerABC
+from Layers.BaseClasses.LayersABC import LayerABC
+from Layers.BaseClasses.OneDimLayer import OneDimLayer
 import numpy as np
 
 
-class ReLU1D(LayerABC):
-    def __init__(self):
+class ReLU1D(OneDimLayer):
+    def __init__(self,input_length):
+        super().__init__(input_length=input_length)
         pass
 
     def forward(self, input):
@@ -16,5 +18,5 @@ class ReLU1D(LayerABC):
 
 if __name__ == '__main__':
     print("Simple test of ReLU1D Layer");
-    test_layer = ReLU1D()
+    test_layer = ReLU1D(16)
     print(test_layer.forward(np.random.rand(16, 1)*3))

@@ -1,12 +1,12 @@
 import numpy as np
 
-from Layers.LayersABC import LayerABC
+from Layers.BaseClasses.LayersABC import LayerABC
+from Layers.BaseClasses.OneDimLayer import OneDimLayer
 
+class BatchNorm1D(OneDimLayer):
 
-class BatchNorm1D(LayerABC):
-
-    def __init__(self, input_dim, gamma=1, beta=0, eps=10 ** -5):
-        self._input_dim = input_dim
+    def __init__(self, input_length, gamma=1, beta=0, eps=10 ** -5):
+        OneDimLayer.__init__(self,input_length=input_length)
         self._gamma = gamma
         self._beta = beta
         self._eps = eps

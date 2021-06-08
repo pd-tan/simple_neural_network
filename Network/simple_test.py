@@ -1,4 +1,3 @@
-from Layers.LayersABC import LayerABC
 from Layers.SigmoidLayer import SigmoidLayer
 from Layers.ReLU1D import ReLU1D
 from Layers.FullyConnectedLayer1D import FullyConnectedLayer1D
