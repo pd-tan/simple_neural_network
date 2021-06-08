@@ -12,11 +12,3 @@ class LayerABC(metaclass=ABCMeta):
     def back(self):
         pass
 
-    @abstractmethod
-    def init_weights(self):
-        pass
-
-    @abstractmethod
-    def has_weights(self):
-        pass
-
