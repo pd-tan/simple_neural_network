@@ -26,7 +26,7 @@ class FullyConnectedLayer1D(OneDimLayer, TrainableLayersABC):
             pass
 
         if bias_init_method == None:
-            self._biases = np.random.randn(self._input_length, self._output_length)
+            self._biases = np.random.randn(self._output_length)
 
     def update_weight(self):
         # TODO implement update weights
