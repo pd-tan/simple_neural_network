@@ -35,4 +35,4 @@ class FullyConnectedLayer1D(OneDimLayer,TrainableLayersABC):
 if __name__ == '__main__':
     print("Simple test of FC1D Layer");
     test_layer = FullyConnectedLayer1D(1,16);
-    print(test_layer.forward(np.random.rand(1)))
+    print(test_layer.forward(np.random.rand(1)).shape)
