@@ -11,7 +11,7 @@ class FullConnectedLayer1D(LayerABC):
         self.init_weights(init_method)
 
     def forward(self, input):
-        return np.matmul(self._weights, input)
+        return np.matmul(self._weights, input) +self._biases
 
     def back(self):
         # TODO implement backwards
@@ -20,8 +20,11 @@ class FullConnectedLayer1D(LayerABC):
     def init_weights(self, init_method=None):
         if init_method == None:
             self._weights = np.random.rand(self._output_length, self._input_length)
+            self._biases =np.random.rand(self._output_length,1)
         else:
             pass
+
+
 
     def has_weights(self):
         return True
