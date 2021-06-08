@@ -10,15 +10,15 @@ class FullyConnectedDimTest(unittest.TestCase):
 
     def test_forward_input_dim(self):
         with self.assertRaises(ValueError):
-            self.test_layer_0.forward(np.zeros((3, 1)))
+            self.test_layer_0.forward(np.zeros(3))
         with self.assertRaises(ValueError):
-            self.test_layer_1.forward(np.zeros((3, 1)))
+            self.test_layer_1.forward(np.zeros(3))
         with self.assertRaises(ValueError):
-            self.test_layer_2.forward(np.zeros((3, 1)))
+            self.test_layer_2.forward(np.zeros(3))
 
     def test_forward_output_dim(self):
-        self.assertEqual(len(self.test_layer_1.forward(np.zeros((1, 1)))), 14)
-        self.assertEqual(len(self.test_layer_2.forward(np.zeros((2, 1)))), 13)
+        self.assertEqual(len(self.test_layer_1.forward(np.zeros(1))), 14)
+        self.assertEqual(len(self.test_layer_2.forward(np.zeros(2))), 13)
 
 
 if __name__ == '__main__':
