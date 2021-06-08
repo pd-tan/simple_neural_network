@@ -1,6 +1,6 @@
 import numpy as np
 
-from layers.LayersABC import LayerABC
+from Layers.LayersABC import LayerABC
 
 
 class BatchNorm1D(LayerABC):
