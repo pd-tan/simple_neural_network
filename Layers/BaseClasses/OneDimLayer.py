@@ -7,5 +7,4 @@ class OneDimLayer(LayerABC):
         self._input_length = input_length
 
     def forward(self, input):
-        assert (len(input.shape) == 2)
-        assert (input.shape[1] == 1)
+        assert (len(input.shape) == 1), "Input must be one-dimensional"

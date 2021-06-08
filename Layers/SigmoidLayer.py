@@ -8,6 +8,7 @@ class SigmoidLayer(OneDimLayer):
         pass
 
     def forward(self, input):
+        super().forward(input)
         return 1 / (1 + np.exp(-input))
 
     def back(self):

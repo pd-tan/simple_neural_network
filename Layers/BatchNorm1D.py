@@ -13,6 +13,7 @@ class BatchNorm1D(OneDimLayer):
 
     def forward(self, input):
         # TODO asset dim
+        super().forward(input)
         return((input - np.mean(input)) * self._gamma / np.sqrt(np.var(input) + self._eps)) + self._beta
 
     def back(self):
@@ -23,4 +24,4 @@ class BatchNorm1D(OneDimLayer):
 if __name__ == '__main__':
     print("Simple test of BatchNorm Layer");
     test_layer = BatchNorm1D(16)
-    print(test_layer.forward(np.random.rand(16, 1) * 3))
+    print(test_layer.forward(np.random.rand(16) * 3))

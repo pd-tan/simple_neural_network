@@ -10,6 +10,7 @@ class FullyConnectedLayer1D(OneDimLayer,TrainableLayersABC):
         self.init_weights(init_method)
 
     def forward(self, input):
+        super().forward(input)
         return np.matmul(self._weights, input) + self._biases
 
     def back(self):
@@ -34,4 +35,4 @@ class FullyConnectedLayer1D(OneDimLayer,TrainableLayersABC):
 if __name__ == '__main__':
     print("Simple test of FC1D Layer");
     test_layer = FullyConnectedLayer1D();
-    print(test_layer.forward(np.random.rand(16,1)))
+    print(test_layer.forward(np.random.rand(16)))

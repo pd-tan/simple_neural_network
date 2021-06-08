@@ -9,6 +9,7 @@ class ReLU1D(OneDimLayer):
         pass
 
     def forward(self, input):
+        super().forward(input)
         return input * (input > 1)
 
     def back(self, input):
