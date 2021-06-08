@@ -1,10 +1,10 @@
 import numpy
 import numpy as np
 
-from layers.TrainableLayersABC import TrainableLayersABC
+from Layers.TrainableLayersABC import TrainableLayersABC
 
 
-class FullConnectedLayer1D(TrainableLayersABC):
+class FullyConnectedLayer1D(TrainableLayersABC):
     def __init__(self, input_length=16, output_length=16, init_method=None):
         self._input_length = input_length
         self._output_length = output_length
@@ -34,5 +34,5 @@ class FullConnectedLayer1D(TrainableLayersABC):
 
 if __name__ == '__main__':
     print("Simple test of FC1D Layer");
-    test_layer = FullConnectedLayer1D();
+    test_layer = FullyConnectedLayer1D();
     print(test_layer.forward(np.random.rand(16,1)))
