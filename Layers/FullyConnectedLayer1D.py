@@ -4,7 +4,7 @@ from Layers.BaseClasses.TrainableLayersABC import TrainableLayersABC
 from Layers.BaseClasses.OneDimLayer import OneDimLayer
 
 class FullyConnectedLayer1D(OneDimLayer,TrainableLayersABC):
-    def __init__(self, input_length=16, output_length=16, init_method=None):
+    def __init__(self, input_length, output_length, init_method=None):
         OneDimLayer.__init__(self,input_length=input_length)
         self._output_length = output_length
         self.init_weights(init_method)
@@ -20,7 +20,7 @@ class FullyConnectedLayer1D(OneDimLayer,TrainableLayersABC):
     def init_weights(self, init_method=None):
         if init_method == None:
             self._weights = np.random.rand(self._output_length, self._input_length)
-            self._biases =np.random.rand(self._output_length,1)
+            self._biases =np.random.rand(self._output_length)
         else:
             pass
 
@@ -34,5 +34,5 @@ class FullyConnectedLayer1D(OneDimLayer,TrainableLayersABC):
 
 if __name__ == '__main__':
     print("Simple test of FC1D Layer");
-    test_layer = FullyConnectedLayer1D();
-    print(test_layer.forward(np.random.rand(16)))
+    test_layer = FullyConnectedLayer1D(1,16);
+    print(test_layer.forward(np.random.rand(1)))
