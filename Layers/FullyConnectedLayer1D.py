@@ -1,5 +1,5 @@
 import numpy as np
-from WeightInitialisation.WeightInitialisationTypes import WeightInitialisationType, ZeroInit, HeInit, RandomInit
+from WeightInitialisation.WeightInitialisationTypes import WeightInitialisationType, WeightInitialiser,ZeroInit, HeInit, RandomInit
 from Layers.BaseClasses.TrainableLayersABC import TrainableLayersABC
 from Layers.BaseClasses.OneDimLayer import OneDimLayer
 
@@ -19,11 +19,13 @@ class FullyConnectedLayer1D(OneDimLayer, TrainableLayersABC):
         pass
 
     def init_weights(self, weight_init_method, bias_init_method=None):
-        if weight_init_method == WeightInitialisationType.ZERO:
-            self._weights = ZeroInit(self._input_length, self._output_length)
 
-        else:
-            pass
+        self._weights = WeightInitialiser(weight_init_method,self._input_length,self._output_length)
+        # if weight_init_method == WeightInitialisationType.ZERO:
+        #     self._weights = ZeroInit(self._input_length, self._output_length)
+        #
+        # else:
+        #     pass
 
         if bias_init_method == None:
             self._biases = np.random.randn(self._output_length)
