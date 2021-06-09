@@ -5,10 +5,10 @@ from Layers.BaseClasses.OneDimLayer import OneDimLayer
 
 
 class FullyConnectedLayer1D(OneDimLayer, TrainableLayersABC):
-    def __init__(self, input_length, output_length, init_method=WeightInitialisationType.ZERO):
+    def __init__(self, input_length, output_length, weight_init_method=WeightInitialisationType.ZERO):
         OneDimLayer.__init__(self, input_length=input_length)
         self._output_length = output_length
-        self.init_weights(init_method)
+        self.init_weights(weight_init_method)
 
     def forward(self, input):
         super().forward(input)
@@ -28,7 +28,7 @@ class FullyConnectedLayer1D(OneDimLayer, TrainableLayersABC):
         #     pass
 
         if bias_init_method == None:
-            self._biases = np.random.randn(self._output_length)
+            self._biases = np.zeros(self._output_length)
 
     def update_weight(self):
         # TODO implement update weights
