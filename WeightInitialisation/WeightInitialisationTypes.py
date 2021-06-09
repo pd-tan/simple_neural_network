@@ -10,7 +10,7 @@ class WeightInitialisationType(Enum):
     HE = 3
 
 
-def WeightInitialiser(init_type, input_length, output_length):
+def WeightInitialiser(init_type, input_length, output_length,batch_size):
     switcher = {
         WeightInitialisationType.ZERO: ZeroInit,
         WeightInitialisationType.RANDOM: RandomInit,
@@ -18,4 +18,4 @@ def WeightInitialiser(init_type, input_length, output_length):
 
     }
     init_func = switcher.get(init_type)
-    return init_func(input_length=input_length,output_length=output_length)
+    return init_func(input_length=input_length,output_length=output_length,batch_size=batch_size)

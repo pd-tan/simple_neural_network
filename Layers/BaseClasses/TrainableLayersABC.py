@@ -4,7 +4,7 @@ class TrainableLayersABC(LayerABC):
     def __init__(self):
         pass
     @abstractmethod
-    def init_weights(self):
+    def init_weights(self,weight_init_method,bias_init_method):
         pass
 
     @abstractmethod

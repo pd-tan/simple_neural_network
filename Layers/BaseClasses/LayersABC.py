@@ -1,11 +1,11 @@
 from abc import ABCMeta, abstractmethod
 
 class LayerABC(metaclass=ABCMeta):
-    def __init__(self):
-        self.__weights = None
+    def __init__(self,input_length,batch_size):
+        pass
 
     @abstractmethod
-    def forward(self):
+    def forward(self,input):
         pass
 
     @abstractmethod

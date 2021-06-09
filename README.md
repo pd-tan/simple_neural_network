@@ -24,6 +24,7 @@ A simple neural netwoprk implemented in python using numpy
 - biases
 
 # TODO
+1. Implement batch support
 1. Test batch norm
 2. Implement backprop
 3. create network class that has ordered list of layers. Iterate all forward and backwards for convenience
