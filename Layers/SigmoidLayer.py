@@ -3,8 +3,8 @@ import numpy as np
 from Layers.BaseClasses.OneDimLayer import OneDimLayer
 
 class SigmoidLayer(OneDimLayer):
-    def __init__(self,input_length):
-        super().__init__(input_length=input_length)
+    def __init__(self,input_length,batch_size):
+        super().__init__(input_length=input_length,batch_size=batch_size)
         pass
 
     def forward(self, input):
@@ -17,5 +17,5 @@ class SigmoidLayer(OneDimLayer):
 
 if __name__ == '__main__':
     print("Simple test of sigmoid Layer");
-    test_layer = SigmoidLayer(3)
-    print(test_layer.forward(np.array([100,0,-100])))
+    test_layer = SigmoidLayer(3,10)
+    print(test_layer.forward(np.random.randn(10,3,1)))

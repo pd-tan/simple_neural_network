@@ -4,8 +4,8 @@ import numpy as np
 
 
 class ReLU1D(OneDimLayer):
-    def __init__(self,input_length):
-        super().__init__(input_length=input_length)
+    def __init__(self,input_length,batch_size):
+        super().__init__(input_length=input_length,batch_size=batch_size)
         pass
 
     def forward(self, input):
@@ -19,5 +19,5 @@ class ReLU1D(OneDimLayer):
 
 if __name__ == '__main__':
     print("Simple test of ReLU1D Layer");
-    test_layer = ReLU1D(16)
-    print(test_layer.forward(np.random.rand(16, 1)*3))
+    test_layer = ReLU1D(3,16)
+    print(test_layer.forward(np.random.randn(16,3,1)))

@@ -18,4 +18,4 @@ def WeightInitialiser(init_type, input_length, output_length,batch_size):
 
     }
     init_func = switcher.get(init_type)
-    return init_func(input_length=input_length,output_length=output_length,batch_size=batch_size)
+    return init_func(input_length=input_length,output_length=output_length)
