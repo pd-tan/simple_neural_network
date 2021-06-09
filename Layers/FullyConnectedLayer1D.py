@@ -23,15 +23,9 @@ class FullyConnectedLayer1D(OneDimLayer, TrainableLayersABC):
     def init_weights(self, weight_init_method, bias_init_method=None):
         self._weights = WeightInitialiser(init_type=weight_init_method, input_length=self._input_length,
                                           output_length=self._output_length, batch_size=self._batch_size)
-        # if weight_init_method == WeightInitialisationType.ZERO:
-        #     self._weights = ZeroInit(self._input_length, self._output_length)
-        #
-        # else:
-        #     pass
-
         if bias_init_method == None:
 
-            self._biases = np.zeros(self._output_length)
+            self._biases = np.zeros((self._output_length,1))
 
     def update_weight(self):
         # TODO implement update weights
@@ -43,5 +37,7 @@ class FullyConnectedLayer1D(OneDimLayer, TrainableLayersABC):
 
 if __name__ == '__main__':
     print("Simple test of FC1D Layer");
-    test_layer = FullyConnectedLayer1D(16,8,5);
-    print(test_layer.forward(np.random.randn(5,16,1)).shape)
+    test_layer = FullyConnectedLayer1D(3,2,5);
+    input = np.random.randn(5,3,1)
+    print(input.shape)
+    print(test_layer.forward(np.random.randn(5,3,1)).shape)
