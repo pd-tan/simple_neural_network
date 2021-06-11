@@ -3,7 +3,7 @@ from Layers.SigmoidLayer import SigmoidLayer
 import numpy as np
 
 class SigmoidValueTest(unittest.TestCase):
-    def test_non_zero(self):
+    def test_sigmoid_output_value(self):
         for batch_size in range(1,10):
             for input_dim in range(1,100):
                 test_layer = SigmoidLayer(input_dim,batch_size)
