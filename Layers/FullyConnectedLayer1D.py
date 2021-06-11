@@ -16,9 +16,9 @@ class FullyConnectedLayer1D(OneDimLayer, TrainableLayersABC):
 
         return np.matmul(self._weights, input) + self._biases
 
-    def back(self):
-        # TODO implement backwards
-        pass
+    def back(self,input,backwards_input):
+        return backwards_input*np.expand_dims(np.sum(self._weights,axis=0),axis=1)
+
 
     def init_weights(self, weight_init_method, bias_init_method=None):
         self._weights = WeightInitialiser(init_type=weight_init_method, input_length=self._input_length,

@@ -16,7 +16,7 @@ class BatchNorm1D(OneDimLayer):
         super().check_dim(input)
         return((input - np.mean(input,axis=0)) * self._gamma / np.sqrt(np.var(input) + self._eps)) + self._beta
 
-    def back(self):
+    def back(self, input,backwards_input):
         # TODO implement backwareds for batchnorm
 
         pass

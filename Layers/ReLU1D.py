@@ -12,12 +12,13 @@ class ReLU1D(OneDimLayer):
         super().check_dim(input)
         return input * (input > 0)
 
-    def back(self, input):
+    def back(self, input,backwards_input):
         # TODO add backwards for relu
-        pass
+        return 1 * (input > 0) *backwards_input
 
 
 if __name__ == '__main__':
     print("Simple test of ReLU1D Layer");
     test_layer = ReLU1D(3,16)
+    print(test_layer.forward(np.random.randn(16,3,1)))
     print(test_layer.forward(np.random.randn(16,3,1)))
