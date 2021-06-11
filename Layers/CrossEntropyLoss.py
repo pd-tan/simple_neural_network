@@ -7,7 +7,27 @@ class CrossEntropyLoss(OneDimLayer):
         super().__init__(input_length=input_length, batch_size=batch_size)
         pass
     def forward(self,input,truth):
-        super().forward(input)
-        
+        super().check_dim(input)
+        super().check_dim(truth)
+        loss = -(truth*np.log(input) + (1-truth)*np.log(input))
+        loss = np.sum(loss,axis=1)
+        return loss
+
+    def back(self):
+        pass
+
+
+if __name__ == '__main__':
+    from Layers.SigmoidLayer import SigmoidLayer
+    print("Simple test of CELoss Layer");
+    test_layer = CrossEntropyLoss(3,10)
+    sigmod = SigmoidLayer(3,10)
+    network_output = np.random.randn(10,3,1)
+    truth = np.round(np.random.uniform(0,1,(10,3,1)))
+    print(sigmod.forward(network_output))
+    print(truth)
+    loss = test_layer.forward(sigmod.forward(network_output),truth)
+    print(loss)
+
 
 
