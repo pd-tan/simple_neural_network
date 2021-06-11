@@ -12,12 +12,12 @@ class CrossEntropyLoss(OneDimLayer):
         loss = np.sum(loss, axis=1)
         return loss
 
-    def cross_entropy_loss_backward(self,input,truth):
-        return -(truth / input + (1 - truth) * -1 / (1 - input))
+    def gradient(self,input,backwards_input):
+        return -(backwards_input / input + (1 - backwards_input) * -1 / (1 - input))
 
     def forward(self, input, truth):
-        self.check_dim(input)
-        self.check_dim(truth)
+        self.check_input_dim(input)
+        self.check_input_dim(truth)
         self.save_current_input(input)
         self.save_current_truth(truth)
         return self.cross_entropy_loss(input=input, truth=truth)

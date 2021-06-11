@@ -5,10 +5,34 @@ class LayerABC(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def forward(self,input):
+    def forward_pass(self,input):
         pass
 
     @abstractmethod
-    def back(self, backwards_input):
+    def gradient(self, backwards_input):
         pass
+
+    @abstractmethod
+    def check_input_dim(self, input):
+        pass
+
+    @abstractmethod
+    def check_backwards_input_dim(self, input):
+        pass
+
+    def save_current_input(self, input):
+        self._current_input = input
+
+    def save_current_backward_input(self, backward_input):
+        self._current_backward_input = backward_input
+
+    def forward(self, input):
+        self.check_input_dim(input=input)
+        self.save_current_input(input)
+        self.forward_pass(input)
+
+    def back(self, backwards_input):
+        self.save_current_backward_input(backward_input=backwards_input)
+        return self.gradient(backwards_input=backwards_input)
+
 

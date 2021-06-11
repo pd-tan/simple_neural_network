@@ -13,7 +13,7 @@ class BatchNorm1D(OneDimLayer):
 
     def forward(self, input):
         # TODO norm for each batch seperately
-        super().check_dim(input)
+        super().check_input_dim(input)
         return((input - np.mean(input,axis=0)) * self._gamma / np.sqrt(np.var(input) + self._eps)) + self._beta
 
     def back(self, input,backwards_input):
