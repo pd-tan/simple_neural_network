@@ -23,5 +23,10 @@ class BatchNorm1D(OneDimLayer):
 
 if __name__ == '__main__':
     print("Simple test of BatchNorm Layer");
-    test_layer = BatchNorm1D(16,4)
-    print(test_layer.forward(np.random.randn(4,16,1)))
+    test_layer = BatchNorm1D(16,40)
+    output_data = test_layer.forward(np.random.randn(40,16,1))
+    summed_data = np.sum(output_data,axis=0)
+    print(summed_data)
+
+    print(all(np.abs(summed_data)<1))
+
