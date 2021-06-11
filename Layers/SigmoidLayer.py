@@ -11,8 +11,8 @@ class SigmoidLayer(OneDimLayer):
         super().check_dim(input)
         return 1 / (1 + np.exp(-input))
 
-    def back(self):
-        pass
+    def back(self,input,backwards_input):
+        return self.forward(input)*(1-self.forward(input))*backwards_input
 
 
 if __name__ == '__main__':

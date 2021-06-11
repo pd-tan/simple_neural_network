@@ -9,11 +9,12 @@ class CrossEntropyLoss(OneDimLayer):
     def forward(self,input,truth):
         super().check_dim(input)
         super().check_dim(truth)
-        loss = -(truth*np.log(input) + (1-truth)*np.log(input))
+        loss = -(truth*np.log(input) + (1-truth)*np.log(1-input))
         loss = np.sum(loss,axis=1)
         return loss
 
-    def back(self):
+    def back(self,input,truth,loss):
+        return -(truth/input+(1-truth)*-1/(1-input))
         pass
 
 
@@ -28,6 +29,7 @@ if __name__ == '__main__':
     print(truth)
     loss = test_layer.forward(sigmod.forward(network_output),truth)
     print(loss)
+    print(test_layer.back(network_output,truth,loss))
 
 
 
