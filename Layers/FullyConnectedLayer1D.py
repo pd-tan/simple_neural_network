@@ -12,7 +12,7 @@ class FullyConnectedLayer1D(OneDimLayer, TrainableLayersABC):
         self.init_weights(weight_init_method)
 
     def forward(self, input):
-        super().forward(input)
+        super().check_dim(input)
 
         return np.matmul(self._weights, input) + self._biases
 

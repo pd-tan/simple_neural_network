@@ -8,7 +8,7 @@ class OneDimLayer(LayerABC):
         self._input_length = input_length
         self._batch_size = batch_size
 
-    def forward(self, input):
+    def check_dim(self, input):
         # TODO add catching of batch * input and convert to batch*input*1 and give warning
         assert (len(input.shape) == 3), "Input must be one-dimensional x batch size"
         assert (input.shape[0] == self._batch_size), "The first dimension of your input should be the speciified batch size"
