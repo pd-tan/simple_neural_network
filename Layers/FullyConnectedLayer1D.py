@@ -60,3 +60,6 @@ if __name__ == '__main__':
     input = np.random.randn(5, 3, 1)
     print(input.shape)
     print(test_layer.forward(np.random.randn(5, 3, 1)).shape)
+
+
+    from data_generation
