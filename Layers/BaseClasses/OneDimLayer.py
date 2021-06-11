@@ -1,7 +1,7 @@
-from Layers.BaseClasses.LayersABC import LayerABC
+from Layers.BaseClasses.StandardLayersABC import StandardLayersABC
 
 
-class OneDimLayer(LayerABC):
+class OneDimStandardLayers(StandardLayersABC):
     def __init__(self, input_length, batch_size):
         assert (input_length != 0), "Input must not be 0"
         assert (batch_size != 0), "Batch size must not be 0"

@@ -1,24 +1,20 @@
 import numpy as np
 
-from Layers.BaseClasses.LayersABC import LayerABC
-from Layers.BaseClasses.OneDimLayer import OneDimLayer
+from Layers.BaseClasses.StandardLayersABC import StandardLayersABC
+from Layers.BaseClasses.OneDimLayer import OneDimStandardLayers
 
-class BatchNorm1D(OneDimLayer):
+class BatchNorm1D(OneDimStandardLayers):
 
     def __init__(self, input_length, batch_size, gamma=1, beta=0, eps=10 ** -5):
-        OneDimLayer.__init__(self,input_length=input_length,batch_size=batch_size)
+        OneDimStandardLayers.__init__(self, input_length=input_length, batch_size=batch_size)
         self._gamma = gamma
         self._beta = beta
         self._eps = eps
 
-    def forward(self, input):
-        # TODO norm for each batch seperately
-        super().check_input_dim(input)
+    def forward_pass(self, input):
         return((input - np.mean(input,axis=0)) * self._gamma / np.sqrt(np.var(input) + self._eps)) + self._beta
 
-    def back(self, input,backwards_input):
-        # TODO implement backwareds for batchnorm
-
+    def backward_gradient(self, input,backwards_input):
         pass
 
 if __name__ == '__main__':

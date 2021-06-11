@@ -1,8 +1,7 @@
-from Layers.BaseClasses.LayersABC import LayerABC
+from Layers.BaseClasses.StandardLayersABC import StandardLayersABC
 from abc import abstractmethod
-class TrainableLayersABC(LayerABC):
-    def __init__(self):
-        pass
+class TrainableStandardLayersABC(StandardLayersABC):
+
     @abstractmethod
     def init_weights(self,weight_init_method,bias_init_method):
         pass

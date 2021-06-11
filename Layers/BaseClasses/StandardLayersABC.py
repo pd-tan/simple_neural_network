@@ -1,15 +1,14 @@
 from abc import ABCMeta, abstractmethod
 
-class LayerABC(metaclass=ABCMeta):
-    def __init__(self,input_length,batch_size):
+
+class StandardLayersABC(metaclass=ABCMeta):
+
+    @abstractmethod
+    def backward_gradient(self, input, backwards_input):
         pass
 
     @abstractmethod
-    def forward_pass(self,input):
-        pass
-
-    @abstractmethod
-    def gradient(self, backwards_input):
+    def forward_pass(self, input):
         pass
 
     @abstractmethod
@@ -29,10 +28,9 @@ class LayerABC(metaclass=ABCMeta):
     def forward(self, input):
         self.check_input_dim(input=input)
         self.save_current_input(input)
-        self.forward_pass(input)
+        return self.forward_pass(input)
 
-    def back(self, backwards_input):
+    def backwards(self, backwards_input):
         self.save_current_backward_input(backward_input=backwards_input)
-        return self.gradient(backwards_input=backwards_input)
-
+        return self.backward_gradient(input=self._current_input, backwards_input=backwards_input)
 
