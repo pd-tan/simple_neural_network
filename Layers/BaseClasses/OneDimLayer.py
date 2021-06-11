@@ -8,6 +8,12 @@ class OneDimLayer(LayerABC):
         self._input_length = input_length
         self._batch_size = batch_size
 
+    def save_current_input(self, input):
+        self._current_input = input
+
+    def save_current_backward_input(self, backward_input):
+        self._current_backward_input = backward_input
+
     def check_dim(self, input):
         # TODO add catching of batch * input and convert to batch*input*1 and give warning
         assert (len(input.shape) == 3), "Input must be one-dimensional x batch size"

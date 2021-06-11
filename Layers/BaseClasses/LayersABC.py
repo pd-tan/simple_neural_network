@@ -9,6 +9,6 @@ class LayerABC(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def back(self,input,backwards_input):
+    def back(self, backwards_input):
         pass
 
