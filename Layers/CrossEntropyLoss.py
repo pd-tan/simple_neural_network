@@ -3,6 +3,7 @@ import numpy as np
 from Layers.BaseClasses.LossFunctionLayerABC import LossLayersABC
 
 
+
 class CrossEntropyLoss(LossLayersABC):
     def __init__(self, input_length, batch_size):
         assert (input_length != 0), "Input must not be 0"
@@ -15,7 +16,8 @@ class CrossEntropyLoss(LossLayersABC):
 
     def forward_pass(self, input, truth):
         loss_ = -(truth * np.log(input) + (1 - truth) * np.log(1 - input))
-        loss_ = np.sum(loss_, axis=1)
+        loss_ = np.mean(np.sum(loss_, axis=1))
+
         return loss_
 
     def check_input_dim(self, input):
