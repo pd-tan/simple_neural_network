@@ -33,5 +33,6 @@ class FullyConnectedForwardTest(unittest.TestCase):
                     self.assertEqual((batch_size,output_length,1), test_layer.forward(np.zeros((batch_size,input_length,1))).shape)
 
 
+
 if __name__ == '__main__':
     unittest.main()
