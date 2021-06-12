@@ -11,6 +11,7 @@ class BatchNorm1D(OneDimStandardLayers, TrainableStandardLayersABC):
         self._gamma = gamma * np.ones((input_length, 1))
         self._beta = beta * np.ones((input_length, 1))
         self._eps = eps * np.ones((input_length, 1))
+        print(self._gamma)
 
     def forward_pass(self, input):
         self.calculate_input_var(input)
@@ -26,7 +27,7 @@ class BatchNorm1D(OneDimStandardLayers, TrainableStandardLayersABC):
         assert self._normalised_input.shape == (self._batch_size, self._input_length, 1)
 
     def calculate_input_var(self, input):
-        self._input_var = np.var(input,axis = 0)
+        self._input_var = np.var(input, axis=0)
         assert self._input_var.shape == (self._input_length, 1)
 
     def calculate_gamma_gradient(self, backwards_input):
@@ -58,21 +59,33 @@ class BatchNorm1D(OneDimStandardLayers, TrainableStandardLayersABC):
         self.calculate_beta_gradient(backwards_input)
         self.calculate_gamma_gradient(backwards_input)
 
-
     def check_weights_gradient_dim(self):
         pass
-    def init_weights(self,weight_init_method,bias_init_method):
-        pass
-    def update_weights(self, step_size):
+
+    def init_weights(self, weight_init_method, bias_init_method):
         pass
 
+    def update_weights(self, step_size):
+        self._gamma = self._gamma-step_size*self._gamma_gradient
+        self._beta = self._beta-step_size*self._beta_gradient
+
+
 if __name__ == '__main__':
-    print("Simple test of BatchNorm Layer");
+    print("Simple test of BatchNorm Layer")
     test_layer = BatchNorm1D(16, 40)
-    output_data = test_layer.forward(np.random.randn(40, 16, 1))
+    input_data = np.random.randn(40, 16, 1)
+    output_data = test_layer.forward(input_data)
     summed_data = np.sum(output_data, axis=0)
     print(summed_data)
     print(all(np.abs(summed_data) < 1))
+    print(test_layer._gamma)
 
     test_layer.backwards(output_data)
-    test_layer.train(0.01)
+
+    for i in range(10000):
+        test_layer.train(1)
+
+    print(test_layer.forward(input_data))
+    print(test_layer._gamma)
+
+
