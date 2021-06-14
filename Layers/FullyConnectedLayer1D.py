@@ -13,33 +13,33 @@ class FullyConnectedLayer1D(OneDimStandardLayers, TrainableStandardLayersABC):
         self.init_weights(weight_init_method)
         self._initial_weights = self._weights
 
-    def forward_pass(self, input):
+    def _forward_pass(self, input):
         return np.matmul(self._weights, input) + self._biases
 
-    def backward_gradient(self, input, backwards_input):
+    def _backward_gradient(self, input, backwards_input):
         return np.expand_dims(np.sum(backwards_input*self._weights,axis=1),axis=2)
 
 
-    def calculate_weights_gradient(self, input, backwards_input):
-        self.calculate_w_gradient(input, backwards_input)
-        self.calculate_b_gradient(backwards_input)
+    def _calculate_model_parameters_gradient(self, input, backwards_input):
+        self._calculate_w_gradient(input, backwards_input)
+        self._calculate_b_gradient(backwards_input)
 
-    def calculate_w_gradient(self, input, backwards_input):
+    def _calculate_w_gradient(self, input, backwards_input):
         # assuming entire minibatch train in one step.
         self._weights_gradient = np.mean(np.matmul(backwards_input, np.swapaxes(input, 1, 2)), axis=0)
 
-    def calculate_b_gradient(self, backwards_input):
+    def _calculate_b_gradient(self, backwards_input):
         # assuming entire minibatch train in one step.
         self._biases_gradient = np.mean(backwards_input, axis=0)
 
-    def check_weights_gradient_dim(self):
-        self.check_w_dim()
-        self.check_b_wim()
+    def _check_weights_gradient_dim(self):
+        self._check_w_dim()
+        self._check_b_dim()
 
-    def check_w_dim(self):
+    def _check_w_dim(self):
         assert self._weights_gradient.shape == self._weights.shape
 
-    def check_b_wim(self):
+    def _check_b_dim(self):
         assert self._biases_gradient.shape == self._biases.shape
 
     def init_weights(self, weight_init_method, bias_init_method=None):
@@ -48,7 +48,7 @@ class FullyConnectedLayer1D(OneDimStandardLayers, TrainableStandardLayersABC):
         if bias_init_method == None:
             self._biases = np.zeros((self._output_length, 1))
 
-    def update_weights(self, step_size):
+    def _update_weights(self, step_size):
         # simple linear regression
         self._weights = self._weights - step_size * self._weights_gradient
         self._biases = self._biases - step_size * self._biases_gradient

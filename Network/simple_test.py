@@ -10,7 +10,7 @@ import numpy as np
 np.random.seed()
 
 number_of_features_ = 4
-batch_size = 4
+batch_size = 50
 
 L_1 = FullyConnectedLayer1D(32,16,batch_size,weight_init_method=WeightInitialisationType.HE)
 L_1_BN = BatchNorm1D(16,batch_size)
@@ -26,7 +26,7 @@ L_3_A = SigmoidLayer(2,batch_size)
 CELoss = CrossEntropyLoss(2, batch_size)
 layers = [L_1,L_1_BN,L_1_A,L_2,L_2_BN,L_2_A,L_3,L_3_A]
 loss_layer = CELoss
-step_size = 0.000c01
+step_size = 0.0001
 loss_sum = 0
 
 
@@ -42,7 +42,7 @@ for run in range(number_of_runs):
     data, truth = generator.generate_data(batch_size=batch_size)
     layer_input = data
     for layer in layers:
-        layer_input = layer.forward(layer_incput)
+        layer_input = layer.forward(layer_input)
     loss = CELoss.forward(layer_input, truth)
 
     backward_input = CELoss.backwards()

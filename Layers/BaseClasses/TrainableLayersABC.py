@@ -7,19 +7,29 @@ class TrainableStandardLayersABC(StandardLayersABC):
         pass
 
     @abstractmethod
-    def update_weights(self, step_size):
+    def _update_weights(self, step_size):
         pass
 
     @abstractmethod
-    def calculate_weights_gradient(self,input,backwards_input):
+    def _calculate_model_parameters_gradient(self, input, backwards_input):
+        """
+        Calculate the gradient of all model parameters to be updated during training.
+        Args:
+            input : The input used for current forward pass
+            backwards_input : The backward input from downstream layer
+
+        Returns:
+            None
+
+        """
         pass
 
     @abstractmethod
-    def check_weights_gradient_dim(self):
+    def _check_weights_gradient_dim(self):
         pass
 
     def train(self,step_size):
-        self.calculate_weights_gradient(self._current_input,self._current_backward_input)
-        self.check_weights_gradient_dim()
-        self.update_weights(step_size)
+        self._calculate_model_parameters_gradient(self._current_input, self._current_backward_input)
+        self._check_weights_gradient_dim()
+        self._update_weights(step_size)
 

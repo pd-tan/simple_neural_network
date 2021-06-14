@@ -13,12 +13,12 @@ class BatchNorm1D(OneDimStandardLayers, TrainableStandardLayersABC):
         self._eps = eps * np.ones((input_length, 1))
 
 
-    def forward_pass(self, input):
+    def _forward_pass(self, input):
         self.calculate_input_var(input)
         self.calculate_normalised_input(input, self._input_var)
         return (self._normalised_input * self._gamma) + self._beta
 
-    def backward_gradient(self, input, backwards_input):
+    def _backward_gradient(self, input, backwards_input):
         self.calculate_normalised_input_gradient(backwards_input)
         self.calculate_input_gradient(self._normalised_input_gradient)
         return self._input_gradient
@@ -56,17 +56,17 @@ class BatchNorm1D(OneDimStandardLayers, TrainableStandardLayersABC):
             normalised_input_gradient * self._normalised_input)) / (self._input_var + self._eps)
         assert self._input_gradient.shape == (self._batch_size, self._input_length, 1)
 
-    def calculate_weights_gradient(self, input, backwards_input):
+    def _calculate_model_parameters_gradient(self, input, backwards_input):
         self.calculate_beta_gradient(backwards_input)
         self.calculate_gamma_gradient(backwards_input)
 
-    def check_weights_gradient_dim(self):
+    def _check_weights_gradient_dim(self):
         pass
 
     def init_weights(self, weight_init_method, bias_init_method):
         pass
 
-    def update_weights(self, step_size):
+    def _update_weights(self, step_size):
         self._gamma = self._gamma-step_size*self._gamma_gradient
         self._beta = self._beta-step_size*self._beta_gradient
 
