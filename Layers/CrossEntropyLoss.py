@@ -11,22 +11,22 @@ class CrossEntropyLoss(LossLayersABC):
         self._input_length = input_length
         self._batch_size = batch_size
 
-    def backward_gradient(self, input, truth):
-        return -(truth / input + (1 - truth) * -1 / (1 - input))
+    def backward_gradient(self, forward_input, truth):
+        return -(truth / forward_input + (1 - truth) * -1 / (1 - forward_input))
 
-    def forward_pass(self, input, truth):
-        loss_ = -(truth * np.log(input) + (1 - truth) * np.log(1 - input))
+    def forward_pass(self, forward_input, truth):
+        loss_ = -(truth * np.log(forward_input) + (1 - truth) * np.log(1 - forward_input))
         loss_ = np.mean(np.sum(loss_, axis=1))
 
         return loss_
 
-    def check_input_dim(self, input):
-        assert (len(input.shape) == 3), "Input must be one-dimensional x batch size"
-        assert (input.shape[
+    def check_input_dim(self, forward_input):
+        assert (len(forward_input.shape) == 3), "Input must be one-dimensional x batch size"
+        assert (forward_input.shape[
                     0] == self._batch_size), "The first dimension of your input should be the speciified batch size"
-        assert (input.shape[
+        assert (forward_input.shape[
                     1] == self._input_length), "The second dimension of your input should be the input length specified"
-        assert (input.shape[2] == 1), "This is a 1D layer, the third dimension of your input should be 1"
+        assert (forward_input.shape[2] == 1), "This is a 1D layer, the third dimension of your input should be 1"
 
     def check_truth_dim(self, truth):
         assert (len(truth.shape) == 3), "Ground truth must be one-dimensional x batch size"

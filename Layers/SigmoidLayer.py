@@ -11,11 +11,11 @@ class SigmoidLayer(OneDimStandardLayers):
     def _sigmoid(self, input):
         return 1 / (1 + np.exp(-input))
 
-    def _forward_pass(self, input):
-        return self._sigmoid(input=input)
+    def _forward_pass(self, forward_input):
+        return self._sigmoid(input=forward_input)
 
-    def _backward_gradient(self, input, backwards_input):
-        return self._sigmoid(input) * (1 - self._sigmoid(input)) * backwards_input
+    def _backward_output(self, forward_input, backwards_input):
+        return self._sigmoid(forward_input) * (1 - self._sigmoid(forward_input)) * backwards_input
 
 
 if __name__ == '__main__':

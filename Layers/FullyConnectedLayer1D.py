@@ -10,17 +10,17 @@ class FullyConnectedLayer1D(OneDimStandardLayers, TrainableStandardLayersABC):
         OneDimStandardLayers.__init__(self, input_length=input_length, batch_size=batch_size)
         self._output_length = output_length
 
-        self.init_weights(weight_init_method)
+        self._init_trainable_parameters(weight_init_method)
         self._initial_weights = self._weights
 
-    def _forward_pass(self, input):
-        return np.matmul(self._weights, input) + self._biases
+    def _forward_pass(self, forward_input):
+        return np.matmul(self._weights, forward_input) + self._biases
 
-    def _backward_gradient(self, input, backwards_input):
+    def _backward_output(self, forward_input, backwards_input):
         return np.expand_dims(np.sum(backwards_input*self._weights,axis=1),axis=2)
 
 
-    def _calculate_model_parameters_gradient(self, input, backwards_input):
+    def _calculate_trainable_parameters_gradient(self, input, backwards_input):
         self._calculate_w_gradient(input, backwards_input)
         self._calculate_b_gradient(backwards_input)
 
@@ -32,7 +32,7 @@ class FullyConnectedLayer1D(OneDimStandardLayers, TrainableStandardLayersABC):
         # assuming entire minibatch train in one step.
         self._biases_gradient = np.mean(backwards_input, axis=0)
 
-    def _check_weights_gradient_dim(self):
+    def _check_trainable_parameters_gradient_dim(self):
         self._check_w_dim()
         self._check_b_dim()
 
@@ -42,13 +42,13 @@ class FullyConnectedLayer1D(OneDimStandardLayers, TrainableStandardLayersABC):
     def _check_b_dim(self):
         assert self._biases_gradient.shape == self._biases.shape
 
-    def init_weights(self, weight_init_method, bias_init_method=None):
+    def _init_trainable_parameters(self, weight_init_method, bias_init_method=None):
         self._weights = WeightInitialiser(init_type=weight_init_method, input_length=self._input_length,
                                           output_length=self._output_length, batch_size=self._batch_size)
         if bias_init_method == None:
             self._biases = np.zeros((self._output_length, 1))
 
-    def _update_weights(self, step_size):
+    def _update_trainable_parameters(self, step_size):
         # simple linear regression
         self._weights = self._weights - step_size * self._weights_gradient
         self._biases = self._biases - step_size * self._biases_gradient
@@ -75,7 +75,7 @@ if __name__ == '__main__':
     print_per_runs = 10000
     generator = data_generator(4)
     test_layer = FullyConnectedLayer1D(number_of_features_,2,batch_size)
-    test_layer.init_weights(weight_init_method=WeightInitialisationType.HE)
+    test_layer._init_trainable_parameters(weight_init_method=WeightInitialisationType.HE)
     sigmoid_layer = SigmoidLayer(2,batch_size)
     CELoss = CrossEntropyLoss(2,batch_size)
     step_size = 0.00001

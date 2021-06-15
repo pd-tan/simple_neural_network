@@ -8,11 +8,11 @@ class ReLU1D(OneDimStandardLayers):
         super().__init__(input_length=input_length,batch_size=batch_size)
         pass
 
-    def _forward_pass(self, input):
-        return input * (input > 0)
+    def _forward_pass(self, forward_input):
+        return forward_input * (forward_input > 0)
 
-    def _backward_gradient(self, input, backwards_input):
-        return 1 * (input > 0) *backwards_input
+    def _backward_output(self, forward_input, backwards_input):
+        return 1 * (forward_input > 0) * backwards_input
 
 
 if __name__ == '__main__':
