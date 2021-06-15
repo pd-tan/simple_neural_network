@@ -65,7 +65,7 @@ if __name__ == '__main__':
     print(test_layer.forward(np.random.randn(5, 3, 1)).shape)
 
 
-    from data_generation.generate_data import data_generator
+    from DataGeneration.DataGenerator import DataGenerator
     from CrossEntropyLoss import CrossEntropyLoss
     from SigmoidLayer import SigmoidLayer
     from WeightInitialisation.WeightInitialisationTypes import WeightInitialisationType
@@ -73,7 +73,7 @@ if __name__ == '__main__':
     batch_size = 10
     number_of_runs = 10000000
     print_per_runs = 10000
-    generator = data_generator(4)
+    generator = DataGenerator(4)
     test_layer = FullyConnectedLayer1D(number_of_features_,2,batch_size)
     test_layer._init_trainable_parameters(weight_init_method=WeightInitialisationType.HE)
     sigmoid_layer = SigmoidLayer(2,batch_size)
