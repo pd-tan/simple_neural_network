@@ -1,9 +1,9 @@
 ﻿# Simple Neural Network
 
 In this repository, a simple neural network is implemented using numpy. This library has been made to support:
-a 3-layer DNN as below and run its forward path with batch_size=4:
-
-**Float Array Input(32) --> FCL(16)--> Batch Normalization --> ReLU --> FCL(16) --> Batch Normalization --> ReLU -->
+a 3-layer DNN as below and run its forward path with
+**batch_size=4: Float Array Input(32) --> FCL(16)--> Batch Normalization --> ReLU --> FCL(16) --> Batch Normalization
+--> ReLU -->
 FCL(2) --> Sigmoid --> argmax --> Output(1)**
 
 As such the library currently only support the following layers
@@ -25,24 +25,33 @@ Cross Entropy loss function
 ### Data Generation
 
 A [data generator](DataGeneration/DataGenerator.py) was developed to create a simple set of data for testing the
-framework. Upon initialisation, the data generator would create a `(batch_size,input_length,1)` array known as the _
-template array_. The values in the template array are obtained randomly using a normal distribution
+framework. Upon initialisation, the data generator would create a `(batch_size,input_length,1)` array known as the
+_template array_. The values in the template array are obtained randomly using a normal distribution
 
 At each call of data generation, a random `(input_length,1)`  array is created (normally distributed) to simulate an
 input.
 
-A _truth_ array that is of shape `(batch_size,2,1)`
+A _truth_ array that is of shape `(batch_size,2,1)` was also created
 
 For each batch, the dot product between the _input_ and _template array_ is taken. Since both arrays are normally
-distributed with a mean of 0, if the dot product is greater than 0, the _output_ is an array of `[[1],[0]]` else _
-output_ is `[[0],[1]]`
+distributed with a mean of 0, if the dot product is greater than 0, the _output_ is an array of `[[1],[0]]` else
+_output_ is `[[0],[1]]`
 
 ### Training
 
 Using the data generated and a simple linear regression for training, the following results were obtained.
-![Training Image](images/img.png)
 
-As expected, with a well defined true function, the neural network very quickly and easily converges to model the
+- Epoch size = 1000
+- step size = 0.00005
+
+![Fixed Training Image](images/fixed_step_size.png)
+
+A simple extension was carried out, whereby the model was trained with the `step_size` replaced with `step_size * loss`.
+The diagram below showcases the expected result of a curve that decays quicker.
+
+![Variable Training Image](images/loss_varying_training.png)
+
+As expected, with a well-defined _true function_, the neural network very quickly and easily converges to model the
 function, even when running only on CPU.
 
 This script can be found in [here](Network/simple_test.py)
