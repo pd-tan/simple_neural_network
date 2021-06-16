@@ -1,7 +1,10 @@
 ﻿# Simple Neural Network
 
-In this repository, a simple neural network is implemented using numpy. This library has been made to support a 3 layer
-network structure
+In this repository, a simple neural network is implemented using numpy. This library has been made to support:
+a 3-layer DNN as below and run its forward path with batch_size=4:
+
+**Float Array Input(32) --> FCL(16)--> Batch Normalization --> ReLU --> FCL(16) --> Batch Normalization --> ReLU -->
+FCL(2) --> Sigmoid --> argmax --> Output(1)**
 
 As such the library currently only support the following layers
 
@@ -9,6 +12,7 @@ As such the library currently only support the following layers
 2. Fully Connected
 3. ReLU
 4. Sigmoid
+5. Binary Cross-Entropy Loss
 
 ## Sample implementation
 
@@ -20,11 +24,11 @@ Cross Entropy loss function
 
 ### Data Generation
 
-A [data generator](DataGeneration/DataGenerator.py) was developed to create a simple set of data for testing the framework. Upon initialisation, the data
-generator would create a `(batch_size,input_length,1)` array known as the _template array_. The values in the template
-array are obtained randomly using a normal distribution
+A [data generator](DataGeneration/DataGenerator.py) was developed to create a simple set of data for testing the
+framework. Upon initialisation, the data generator would create a `(batch_size,input_length,1)` array known as the _
+template array_. The values in the template array are obtained randomly using a normal distribution
 
-At each call of data generation, a random `(input_length,1)`  array is created (normally idstributed) to simulate an
+At each call of data generation, a random `(input_length,1)`  array is created (normally distributed) to simulate an
 input.
 
 A _truth_ array that is of shape `(batch_size,2,1)`
@@ -65,33 +69,33 @@ A simple standard normal distribution is used to initialised the weights.
 He initialisation was implemented as the preferred intialisation method for this network as ReLU activation was used in
 the network. The benefits of He initialisation has been shown empirically and also shown theoretically to work better
 
-## Layer ABC
+## Layers
 
-'public' fucntions
+The layers were split into two main types:
 
-- forward
-- backwards
-- has_weights
-- init_weights(init_method(enum?))
+1. Loss Function
+2. Standard Layers
 
-'protected' functions
+The key differences between these 2 types of layers is that the _Loss Functions_ require a truth value for forwards and
+backwards while _Standard Layers_ do not.
 
-- set_weights
-- get_gradient
+### [Standard Layer](Layers/BaseClasses/StandardLayersABC.py)
 
-'private' variable
+This base class acts as a template for all other layers. The public functions of `forward` and `backwards` are
+implemented at this level
 
-- weights
+#### [TrainableLayerABC](Layers/BaseClasses/TrainableLayersABC.py)
 
-## FC layer : Layer ABC subclass
+This is a subclass of the standard layers. The `train` function is defined here
 
-- FC(input_nodes, output_nodes)
-- weights
-- biases
+### [Loss Layer](Layers/BaseClasses/LossFunctionLayerABC.py)
 
-# TODO
+This base class acts as a template for all implementations of loss functions. Only one
+subclass [BinaryCrossEntropy](Layers/CrossEntropyLoss.py) was implemented.
 
-1. Implement batch support
-1. Test batch norm
-2. Implement backprop
-3. create network class that has ordered list of layers. Iterate all forward and backwards for convenience
+The public functions of `forward` and `backwards` are implemented here.
+
+## Testing
+
+The Unit testing framework was used for testing the code. Pytest was not used due to the small code base and the likely
+short term use of this project.
