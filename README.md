@@ -10,14 +10,14 @@ As such the library currently only support the following layers
 3. ReLU
 4. Sigmoid
 
-## Sample
+## Sample implementation
 
 The network shown above was trained and implemented. Based on the argmax layer at the end, it was assumed that this
 layer was made for a binary classification task between two classes. As such the network was trained using a Binary
 Cross Entropy loss function
 
 Using simple linear regression for training, the following results were obtained.
-![Training Image](images/img.jpg)
+![Training Image](images/img.png)
 ## Weight Initialisation for Fully Connected Layer
 
 Three forms of weight initialisation were developed:
