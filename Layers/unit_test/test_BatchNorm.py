@@ -13,10 +13,10 @@ class BatchNormValueTest(unittest.TestCase):
                 test_layer = BatchNorm1D(input_length=input_length, batch_size=batch_size, beta=beta, eps=eps)
                 output_data = test_layer.forward(input_data)
                 output_mean = np.mean(output_data, axis=0)
+                # Check the value of variance
                 self.assertTrue(np.allclose(np.var(output_data, axis=0), np.var(input_data, axis=0) / (
                         np.var(input_data, axis=0) + test_layer._eps)))
-
-                # TODO ALter params of all close to desired tolerance
+                # Check the mean of the output
                 self.assertTrue(np.allclose(output_mean, test_layer._beta))
 
 

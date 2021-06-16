@@ -7,8 +7,7 @@ from Layers.BaseClasses.OneDimLayer import OneDimStandardLayers
 
 class FullyConnectedLayer1D(OneDimStandardLayers, TrainableStandardLayersABC):
     def __init__(self, input_length, output_length, batch_size, weight_init_method=WeightInitialisationType.HE):
-        OneDimStandardLayers.__init__(self, input_length=input_length, batch_size=batch_size)
-        self._output_length = output_length
+        OneDimStandardLayers.__init__(self, input_length=input_length, batch_size=batch_size,output_length=output_length)
 
         self._init_trainable_parameters(weight_init_method)
         self._initial_weights = self._weights
@@ -16,7 +15,7 @@ class FullyConnectedLayer1D(OneDimStandardLayers, TrainableStandardLayersABC):
     def _forward_pass(self, forward_input):
         return np.matmul(self._weights, forward_input) + self._biases
 
-    def _backward_output(self, forward_input, backwards_input):
+    def _get_backward_output(self, forward_input, backwards_input):
         return np.expand_dims(np.sum(backwards_input*self._weights,axis=1),axis=2)
 
 

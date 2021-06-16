@@ -5,12 +5,6 @@ import numpy as np
 
 class FullyConnectedForwardTest(unittest.TestCase):
 
-    # def test_forward_input_dim(self):
-    #     with self.assertRaises(AssertionError):
-    #         self.test_layer_1.forward(np.zeros((1, 1)))
-    #     with self.assertRaises(AssertionError):
-    #         self.test_layer_2.forward(np.zeros((2, 1)))
-
     def test_forward_input_length(self):
         for output_length in range(1, 10):
             for desired_batch_size in range(1, 10):

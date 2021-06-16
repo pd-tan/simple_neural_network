@@ -5,13 +5,13 @@ import numpy as np
 
 class ReLU1D(OneDimStandardLayers):
     def __init__(self,input_length,batch_size):
-        super().__init__(input_length=input_length,batch_size=batch_size)
+        super().__init__(input_length=input_length,batch_size=batch_size,output_length=input_length)
         pass
 
     def _forward_pass(self, forward_input):
         return forward_input * (forward_input > 0)
 
-    def _backward_output(self, forward_input, backwards_input):
+    def _get_backward_output(self, forward_input, backwards_input):
         return 1 * (forward_input > 0) * backwards_input
 
 

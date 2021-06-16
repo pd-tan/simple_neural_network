@@ -4,7 +4,7 @@ from abc import ABCMeta, abstractmethod
 class StandardLayersABC(metaclass=ABCMeta):
 
     @abstractmethod
-    def _backward_output(self, forward_input, backwards_input):
+    def _get_backward_output(self, forward_input, backwards_input):
         """
 
         Args:
@@ -70,5 +70,5 @@ class StandardLayersABC(metaclass=ABCMeta):
 
     def backwards(self, backwards_input):
         self._save_current_backward_input(backward_input=backwards_input)
-        return self._backward_output(forward_input=self._current_forward_input, backwards_input=backwards_input)
+        return self._get_backward_output(forward_input=self._current_forward_input, backwards_input=backwards_input)
 

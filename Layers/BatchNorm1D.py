@@ -7,7 +7,7 @@ from Layers.BaseClasses.OneDimLayer import OneDimStandardLayers
 class BatchNorm1D(OneDimStandardLayers, TrainableStandardLayersABC):
 
     def __init__(self, input_length, batch_size, gamma=1, beta=0, eps=10 ** -5):
-        OneDimStandardLayers.__init__(self, input_length=input_length, batch_size=batch_size)
+        OneDimStandardLayers.__init__(self, input_length=input_length, batch_size=batch_size,output_length=input_length)
         self._gamma = gamma * np.ones((input_length, 1))
         self._beta = beta * np.ones((input_length, 1))
         self._eps = eps * np.ones((input_length, 1))
@@ -18,7 +18,7 @@ class BatchNorm1D(OneDimStandardLayers, TrainableStandardLayersABC):
         self.calculate_normalised_input(forward_input, self._input_var)
         return (self._normalised_input * self._gamma) + self._beta
 
-    def _backward_output(self, forward_input, backwards_input):
+    def _get_backward_output(self, forward_input, backwards_input):
         self.calculate_normalised_input_gradient(backwards_input)
         self.calculate_input_gradient(self._normalised_input_gradient)
         return self._input_gradient
