@@ -34,7 +34,7 @@ step_size = 0.00005
 training_loss_sum = 0
 validation_loss_sum = 0
 score_sum = 0
-number_of_runs = 50000
+number_of_runs = 70000
 epoch_size = 1000
 generator = DataGenerator(32)
 
@@ -57,7 +57,7 @@ for run in range(number_of_runs):
         backward_input = layer.backwards(backward_input)
     for layer in layers:
         if isinstance(layer, TrainableStandardLayersABC):
-            layer.train(step_size * loss)
+            layer.train(step_size*loss)
     training_loss_sum = training_loss_sum + loss
     if run % epoch_size == 0 and run != 0:
         training_loss = training_loss_sum / epoch_size
@@ -94,6 +94,7 @@ plt.subplot(3,1,2)
 plt.ylabel('Validation Loss')
 plt.subplot(3,1,3)
 plt.ylabel('Validation Accuracy')
+plt.xlabel('Epochs')
 axs[0].plot(list(range(0, len(training_loss_list))), training_loss_list)
 axs[1].plot(list(range(0, len(validation_loss_list))), validation_loss_list)
 axs[2].plot(list(range(0, len(accuracy_list))), accuracy_list)
